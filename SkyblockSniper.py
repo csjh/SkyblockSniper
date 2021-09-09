@@ -4,6 +4,7 @@ import threading
 import winsound
 from concurrent.futures import ThreadPoolExecutor
 from timeit import default_timer
+import time
 
 import pandas as pd
 import requests
@@ -18,10 +19,9 @@ prices = {}
 
 # stuff to remove
 REFORGES = [" ✦", "⚚ ", " ✪", "✪", "Stiff ", "Lucky ", "Jerry's ", "Dirty ", "Fabled ", "Suspicious ", "Gilded ", "Warped ", "Withered ", "Bulky ", "Stellar ", "Heated ", "Ambered ", "Fruitful ", "Magnetic ", "Fleet ", "Mithraic ", "Auspicious ", "Refined ", "Headstrong ", "Precise ", "Spiritual ", "Moil ", "Blessed ", "Toil ", "Bountiful ", "Candied ", "Submerged ", "Reinforced ", "Cubic ", "Warped ", "Undead ", "Ridiculous ", "Necrotic ", "Spiked ", "Jaded ", "Loving ", "Perfect ", "Renowned ", "Giant ", "Empowered ", "Ancient ", "Sweet ", "Silky ", "Bloody ", "Shaded ", "Gentle ", "Odd ", "Fast ", "Fair ", "Epic ", "Sharp ", "Heroic ", "Spicy ", "Legendary ", "Deadly ", "Fine ", "Grand ", "Hasty ", "Neat ", "Rapid ", "Unreal ", "Awkward ", "Rich ", "Clean ", "Fierce ", "Heavy ", "Light ", "Mythic ", "Pure ", "Smart ", "Titanic ", "Wise ", "Bizarre ", "Itchy ", "Ominous ", "Pleasant ", "Pretty ", "Shiny ", "Simple ", "Strange ", "Vivid ", "Godly ", "Demonic ", "Forceful ", "Hurtful ", "Keen ", "Strong ", "Superior ", "Unpleasant ", "Zealous "]
-FURNITURE = set(["Carpentry Table", "Stool", "Coffee Table", "Dining Chair", "Dining Table", "Minion Chair", "Dark Oak Chair", "Flower Pot", "Dark Oak Bench", "Dark Oak Table", "Armor Stand", "Scarecrow", "Desk", "Bookcase", "Small Shelves", "Weapon Rack", "Fire Pit", "Tiki Torch", "Fireplace", "Furnace+", "Chest Storage", "Weapon Rack+", "Hay Bed", "Large Bed", "Water Trough", "Food Trough", "Medium Shelves", "Crafting Table+", "Wood Chest+", "Diamond Chest+", "Emerald Chest+", "Iron Chest+", "Gold Chest+", "Lapis Chest+", "Redstone Chest+", "Ender Chest+", "Endstone Chest+", "Brewing+", "Enchanting Table+", "Blacksmith+", "Skull Chest++", "Grandfather Clock", "Personal Harp", "Hologram", "Hypixel Sandcastle", "Beach Chair", "Beach Ball", "Picnic Set", "Beach Chair+", "Red Tent", "Cola Cooler", "Illusion Glass", "Flying Bats", "Halloween Candles", "Candy Bowl", "Stacked Pumpkins", "Ghost Book", "X PEDESTAL", "Zombie Grave", "Cauldron", "Present Stack", "Stocking", "Nutcracker", "Small Holiday Tree", "Garland", "Tall Holiday Tree", "Candle Arch", "Derpy Snowman", "Egg Pile", "Easter Basket", "Bunny", "Chick Nest", "Bunny Jerry", "Life Preserver", "BBQ Grill", "Dingy", "Coffin", "Mummy Candle", "Crystal Ball", "Star Decorations", "Reindeer Plush", "Sled", "Wreath", "Gingerbread House", "Egg Stack", "Flower Bed", "Carrot Patch", "Hay Bale", "Rabbit Hutch", "Chicken Coop", "Deck Chair", "Beach Umbrella", "Surfboard", "Mini Sandcastle"])
 
 # Constant for the lowest priced item you want to be shown to you; feel free to change this
-LOWEST_PRICE = 1000000
+LOWEST_PRICE = 999999
 
 START_TIME = default_timer()
 
@@ -35,8 +35,8 @@ def fetch(session, page):
         if data['success']:
             toppage = data['totalPages']
             for auction in data['auctions']:
-                if not auction['claimed'] and 'bin' in auction and auction['item_name'] not in FURNITURE: # if the auction isn't a) claimed and is b) BIN
-                    # removes level if it's a pet
+                if not auction['claimed'] and 'bin' in auction and not "furniture" in auction["item_lore"]: # if the auction isn't a) claimed and is b) BIN
+                    # removes level if it's a pet, also 
                     index = re.sub("\[[^\]]*\]", "", auction['item_name']) + auction['tier']
                     # removes reforges and other yucky characters
                     for reforge in REFORGES: index = index.replace(reforge, "")
@@ -98,24 +98,28 @@ def main():
         
         done = default_timer() - START_TIME
         for result in results:
-            print("Auction UUID: " + str(result[0][0]) + " | Item Name: " + str(result[0][1]) + " | Item price: {:,}".format(result[0][2]), " | Second lowest BIN: {:,}".format(result[1]) + " | Time to refresh AH: " + str(done))
-        print()
+            print("Auction UUID: " + str(result[0][0]) + " | Item Name: " + str(result[0][1]) + " | Item price: {:,}".format(result[0][2]), " | Second lowest BIN: {:,}".format(result[1]) + " | Time to refresh AH: " + str(round(done, 2)))
+        print("\nLooking for auctions...")
 
+print("Looking for auctions...")
 main()
 
 def dostuff():
     global now, toppage
-    threading.Timer(1, dostuff).start()
-    
-    # gets first page to initialize some variables
-    c = requests.get("https://api.hypixel.net/skyblock/auctions?page=0")
-    resp = c.json()
-    tempnow = resp['lastUpdated']
-    
-    # if the new time is larger than the old time, main is executed
-    if tempnow > now:
-        now = tempnow
-        toppage = resp['totalPages']
-        main()
+
+    # if 60 seconds have passed since the last update
+    if time.time()*1000 > now + 60000:
+        prevnow = now
+        now = float('inf')
+        c = requests.get("https://api.hypixel.net/skyblock/auctions?page=0").json()
+        if c['lastUpdated'] != prevnow:
+            now = c['lastUpdated']
+            toppage = c['totalPages']
+            main()
+        else:
+            now = prevnow
+    else:
+        time.sleep(0.25)
+    dostuff()
 
 dostuff()
