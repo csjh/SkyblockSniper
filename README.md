@@ -15,6 +15,7 @@ Run the file `SkyblockSniper.py` by going into command prompt (Window key + R, t
 
 ### Step 4
 Now the script is running good and well. From here, you can just AFK on your island splitscreened watching Netflix or something. As soon as the script finds a good flip, you'll hear a low frequency beep for half a second, and the command to go to the auction is automatically put on your clipboard.
+
 All you have to do is Ctrl+V every time you hear the beep, make sure it's not a scam (sometimes this happens with cosmetics or other market manipulation; can be prevented with NEU's average AH price thing), and then buy it.
 
 -----------------
