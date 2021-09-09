@@ -8,7 +8,10 @@ Presumably it's pretty badly made since I wasn't getting the "200 mil per hour" 
 Download Python. There's literally thousands of guides on how to do this so I'll assume you can figure it out yourself.
 
 ### Step 2
-Either download this repository or just copy paste all the code from inside `SkyblockSniper.py` into a new file on your computer called `SkyblockSniper.py`.
+Either download this repository or just copy paste all the code from inside `SkyblockSniper.py` into a new file on your computer called `SkyblockSniper.py`, and all the text from `requirements.txt` into a new file on your computer called `requirements.txt`.
+
+## Step 3
+Run the command `pip install -r <path to requirements.txt>`. For example, on my computer, the path to `requirements.txt` is `C:\Downloads\requirements.txt`, so I'd use `pip install -r C:\Downloads\requirements.txt`.
 
 ### Step 3
 Run the file `SkyblockSniper.py` by going into command prompt (Window key + R, type cmd) and running the command `python <path to SkyblockSniper.py>`. For example, on my computer, the path to `SkyblockSniper.py` is `C:\Downloads\SkyblockSniper.py`, so I'd use `python C:\Downloads\SkyblockSniper.py`.
