@@ -26,10 +26,10 @@ All you have to do is Ctrl+V every time you hear the beep, make sure it's not a 
 You should get a few results for (shittier) BIN flips. Change LOWEST_PRICE back to 999999 (or any price you want to be the lowest) once done.
 
 ### CMD should look something like this before any results:
-![image](https://user-images.githubusercontent.com/61282104/132628939-1806d793-8282-4dc4-9dd6-0ca9f7a55bab.png)
+![image](https://user-images.githubusercontent.com/61282104/132762683-76d65de2-48f1-4aea-b47e-51f9378d4bdf.png)
 
 and like this after results:
-![image](https://user-images.githubusercontent.com/61282104/132628981-0d7a445f-43e2-4904-8581-d4737a7e2f22.png)
+![image](https://user-images.githubusercontent.com/61282104/132763043-07ba557b-25dd-43d5-af96-fee025ec1ad7.png)
 
 #### Some statistics I noticed
 Timing: For me it takes 8-10 seconds to refresh the AH, which happens every minute (that's an API-level limit).
