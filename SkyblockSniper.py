@@ -18,6 +18,7 @@ prices = {}
 
 # stuff to remove
 REFORGES = [" ✦", "⚚ ", " ✪", "✪", "Stiff ", "Lucky ", "Jerry's ", "Dirty ", "Fabled ", "Suspicious ", "Gilded ", "Warped ", "Withered ", "Bulky ", "Stellar ", "Heated ", "Ambered ", "Fruitful ", "Magnetic ", "Fleet ", "Mithraic ", "Auspicious ", "Refined ", "Headstrong ", "Precise ", "Spiritual ", "Moil ", "Blessed ", "Toil ", "Bountiful ", "Candied ", "Submerged ", "Reinforced ", "Cubic ", "Warped ", "Undead ", "Ridiculous ", "Necrotic ", "Spiked ", "Jaded ", "Loving ", "Perfect ", "Renowned ", "Giant ", "Empowered ", "Ancient ", "Sweet ", "Silky ", "Bloody ", "Shaded ", "Gentle ", "Odd ", "Fast ", "Fair ", "Epic ", "Sharp ", "Heroic ", "Spicy ", "Legendary ", "Deadly ", "Fine ", "Grand ", "Hasty ", "Neat ", "Rapid ", "Unreal ", "Awkward ", "Rich ", "Clean ", "Fierce ", "Heavy ", "Light ", "Mythic ", "Pure ", "Smart ", "Titanic ", "Wise ", "Bizarre ", "Itchy ", "Ominous ", "Pleasant ", "Pretty ", "Shiny ", "Simple ", "Strange ", "Vivid ", "Godly ", "Demonic ", "Forceful ", "Hurtful ", "Keen ", "Strong ", "Superior ", "Unpleasant ", "Zealous "]
+FURNITURE = set(["Carpentry Table", "Stool", "Coffee Table", "Dining Chair", "Dining Table", "Minion Chair", "Dark Oak Chair", "Flower Pot", "Dark Oak Bench", "Dark Oak Table", "Armor Stand", "Scarecrow", "Desk", "Bookcase", "Small Shelves", "Weapon Rack", "Fire Pit", "Tiki Torch", "Fireplace", "Furnace+", "Chest Storage", "Weapon Rack+", "Hay Bed", "Large Bed", "Water Trough", "Food Trough", "Medium Shelves", "Crafting Table+", "Wood Chest+", "Diamond Chest+", "Emerald Chest+", "Iron Chest+", "Gold Chest+", "Lapis Chest+", "Redstone Chest+", "Ender Chest+", "Endstone Chest+", "Brewing+", "Enchanting Table+", "Blacksmith+", "Skull Chest++", "Grandfather Clock", "Personal Harp", "Hologram", "Hypixel Sandcastle", "Beach Chair", "Beach Ball", "Picnic Set", "Beach Chair+", "Red Tent", "Cola Cooler", "Illusion Glass", "Flying Bats", "Halloween Candles", "Candy Bowl", "Stacked Pumpkins", "Ghost Book", "X PEDESTAL", "Zombie Grave", "Cauldron", "Present Stack", "Stocking", "Nutcracker", "Small Holiday Tree", "Garland", "Tall Holiday Tree", "Candle Arch", "Derpy Snowman", "Egg Pile", "Easter Basket", "Bunny", "Chick Nest", "Bunny Jerry", "Life Preserver", "BBQ Grill", "Dingy", "Coffin", "Mummy Candle", "Crystal Ball", "Star Decorations", "Reindeer Plush", "Sled", "Wreath", "Gingerbread House", "Egg Stack", "Flower Bed", "Carrot Patch", "Hay Bale", "Rabbit Hutch", "Chicken Coop", "Deck Chair", "Beach Umbrella", "Surfboard", "Mini Sandcastle"])
 
 # Constant for the lowest priced item you want to be shown to you; feel free to change this
 LOWEST_PRICE = 1000000
@@ -34,7 +35,7 @@ def fetch(session, page):
         if data['success']:
             toppage = data['totalPages']
             for auction in data['auctions']:
-                if not auction['claimed'] and 'bin' in auction: # if the auction isn't a) claimed and is b) BIN
+                if not auction['claimed'] and 'bin' in auction and auction['item_name'] not in FURNITURE: # if the auction isn't a) claimed and is b) BIN
                     # removes level if it's a pet
                     index = re.sub("\[[^\]]*\]", "", auction['item_name']) + auction['tier']
                     # removes reforges and other yucky characters
