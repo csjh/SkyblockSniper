@@ -35,3 +35,7 @@ and like this after results:
 Timing: For me it takes 8-10 seconds to refresh the AH, which happens every minute (that's an API-level limit).
 
 Coins per hour: There were a few good snipes per hour (i.e. a baby yeti for 1.6 mil, reaper mask for 1 mil) but again, no clue where the 200 mil per hour numbers are coming from. My best guess is that they're saying that SOME hours they make 200 mil per hour, and as such that means it's technically correct
+
+Here's approximately 7 hours worth of results (12am EST to 7am EST):
+![image](https://user-images.githubusercontent.com/61282104/132677810-d349c84f-d704-40f9-88f5-56424c8bd788.png)
+
