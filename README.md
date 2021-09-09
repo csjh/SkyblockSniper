@@ -24,6 +24,6 @@ All you have to do is Ctrl+V every time you hear the beep, make sure it's not a 
 -----------------
 
 #### Some statistics I noticed
-Timing: For me it takes 8-10 seconds to refresh the bazaar, which happens every minute (that's an API-level limit).
+Timing: For me it takes 8-10 seconds to refresh the AH, which happens every minute (that's an API-level limit).
 
 Coins per hour: There were a few good snipes per hour (i.e. a baby yeti for 1.6 mil, reaper mask for 1 mil) but again, no clue where the 200 mil per hour numbers are coming from. My best guess is that they're saying that SOME hours they make 200 mil per hour, and as such that means it's technically correct
