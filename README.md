@@ -29,7 +29,7 @@ You should get a few results for (shittier) BIN flips. Change LOWEST_PRICE back 
 ![image](https://user-images.githubusercontent.com/61282104/132627208-e14a7ec9-0373-40de-9db6-3d6b22cd4b3e.png)
 
 and like this after results:
-![image](https://user-images.githubusercontent.com/61282104/132627303-4fd16500-f424-405e-ab77-67449f90874a.png)
+![image](https://user-images.githubusercontent.com/61282104/132628053-e6f5221e-6156-4d57-b669-c9e6fea3ae12.png)
 
 #### Some statistics I noticed
 Timing: For me it takes 8-10 seconds to refresh the AH, which happens every minute (that's an API-level limit).
