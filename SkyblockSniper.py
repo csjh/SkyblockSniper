@@ -19,6 +19,9 @@ prices = {}
 # stuff to remove
 REFORGES = [" ✦", "⚚ ", " ✪", "✪", "Stiff ", "Lucky ", "Jerry's ", "Dirty ", "Fabled ", "Suspicious ", "Gilded ", "Warped ", "Withered ", "Bulky ", "Stellar ", "Heated ", "Ambered ", "Fruitful ", "Magnetic ", "Fleet ", "Mithraic ", "Auspicious ", "Refined ", "Headstrong ", "Precise ", "Spiritual ", "Moil ", "Blessed ", "Toil ", "Bountiful ", "Candied ", "Submerged ", "Reinforced ", "Cubic ", "Warped ", "Undead ", "Ridiculous ", "Necrotic ", "Spiked ", "Jaded ", "Loving ", "Perfect ", "Renowned ", "Giant ", "Empowered ", "Ancient ", "Sweet ", "Silky ", "Bloody ", "Shaded ", "Gentle ", "Odd ", "Fast ", "Fair ", "Epic ", "Sharp ", "Heroic ", "Spicy ", "Legendary ", "Deadly ", "Fine ", "Grand ", "Hasty ", "Neat ", "Rapid ", "Unreal ", "Awkward ", "Rich ", "Clean ", "Fierce ", "Heavy ", "Light ", "Mythic ", "Pure ", "Smart ", "Titanic ", "Wise ", "Bizarre ", "Itchy ", "Ominous ", "Pleasant ", "Pretty ", "Shiny ", "Simple ", "Strange ", "Vivid ", "Godly ", "Demonic ", "Forceful ", "Hurtful ", "Keen ", "Strong ", "Superior ", "Unpleasant ", "Zealous "]
 
+# Constant for the lowest priced item you want to be shown to you; feel free to change this
+LOWEST_PRICE = 1000000
+
 START_TIME = default_timer()
 
 def fetch(session, page):
@@ -48,7 +51,7 @@ def fetch(session, page):
                         prices[index] = [auction['starting_bid'], float("inf")]
                         
                     # if the auction fits in some parameters
-                    if prices[index][1] > 1000000 and prices[index][0] < prices[index][1]/2 and auction['start']+60000 > now:
+                    if prices[index][1] > LOWEST_PRICE and prices[index][0] < prices[index][1]/2 and auction['start']+60000 > now:
                         results.append([auction['uuid'], auction['item_name'], auction['starting_bid'], index])
         return data
 
@@ -84,7 +87,7 @@ def main():
     loop.run_until_complete(future)
     
     # Makes sure all the results are still up to date
-    results = [[entry, prices[entry[3]][1]] for entry in results if (entry[2] > 1000000 and prices[entry[3]][1] != float('inf') and prices[entry[3]][0] == entry[2] and prices[entry[3]][0] < prices[entry[3]][1]/2)]
+    results = [[entry, prices[entry[3]][1]] for entry in results if (entry[2] > LOWEST_PRICE and prices[entry[3]][1] != float('inf') and prices[entry[3]][0] == entry[2] and prices[entry[3]][0] < prices[entry[3]][1]/2)]
     
     if len(results): # if there's results to print
         df=pd.DataFrame(['/viewauction ' + str(max(results, key=lambda entry:entry[0][2])[0][0])])
@@ -93,7 +96,9 @@ def main():
         winsound.Beep(500, 500) # emits a frequency 500hz, for 500ms
         
         done = default_timer() - START_TIME
-        print(results, done, len(results)) # prints auction to console
+        for result in results:
+            print(result[0][0], result[0][1], "Item price: {:,}".format(result[0][2]), "Second lowest BIN: {:,}".format(result[1]), done)
+        print()
 
 main()
 
