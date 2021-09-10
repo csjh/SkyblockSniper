@@ -91,7 +91,7 @@ def main():
     if len(results): results = [[entry, prices[entry[3]][1]] for entry in results if (entry[2] > LOWEST_PRICE and prices[entry[3]][1] != float('inf') and prices[entry[3]][0] == entry[2] and prices[entry[3]][0] < prices[entry[3]][1]/2)]
     
     if len(results): # if there's results to print
-        df=pd.DataFrame(['/viewauction ' + str(max(results, key=lambda entry:entry[0][2])[0][0])])
+        df=pd.DataFrame(['/viewauction ' + str(max(results, key=lambda entry:entry[1])[0][0])])
         df.to_clipboard(index=False,header=False) # copies most valuable auction to clipboard (usually just the only auction cuz very uncommon for there to be multiple
         
         winsound.Beep(500, 500) # emits a frequency 500hz, for 500ms
