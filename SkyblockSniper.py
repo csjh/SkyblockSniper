@@ -106,7 +106,6 @@ main()
 
 def dostuff():
     global now, toppage
-    threading.Timer(0.25, dostuff).start()
 
     # if 60 seconds have passed since the last update
     if time.time()*1000 > now + 60000:
@@ -119,5 +118,7 @@ def dostuff():
             main()
         else:
             now = prevnow
+    time.sleep(0.25)
 
-dostuff()
+while True:
+    dostuff()
