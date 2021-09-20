@@ -1,6 +1,5 @@
 import asyncio
 import re
-import threading
 import winsound
 from concurrent.futures import ThreadPoolExecutor
 from timeit import default_timer
@@ -22,6 +21,9 @@ REFORGES = [" ✦", "⚚ ", " ✪", "✪", "Stiff ", "Lucky ", "Jerry's ", "Dirt
 
 # Constant for the lowest priced item you want to be shown to you; feel free to change this
 LOWEST_PRICE = 5
+
+# Constant for the lowest percent difference you want to be shown to you; feel free to change this
+LOWEST_PERCENT_MARGIN = 1/2
 
 START_TIME = default_timer()
 
@@ -52,7 +54,7 @@ def fetch(session, page):
                         prices[index] = [auction['starting_bid'], float("inf")]
                         
                     # if the auction fits in some parameters
-                    if prices[index][1] > LOWEST_PRICE and prices[index][0] < prices[index][1]/2 and auction['start']+60000 > now:
+                    if prices[index][1] > LOWEST_PRICE and prices[index][0]/prices[index][1] < LOWEST_PERCENT_MARGIN and auction['start']+60000 > now:
                         results.append([auction['uuid'], auction['item_name'], auction['starting_bid'], index])
         return data
 
@@ -88,7 +90,7 @@ def main():
     loop.run_until_complete(future)
     
     # Makes sure all the results are still up to date
-    if len(results): results = [[entry, prices[entry[3]][1]] for entry in results if (entry[2] > LOWEST_PRICE and prices[entry[3]][1] != float('inf') and prices[entry[3]][0] == entry[2] and prices[entry[3]][0] < prices[entry[3]][1]/2)]
+    if len(results): results = [[entry, prices[entry[3]][1]] for entry in results if (entry[2] > LOWEST_PRICE and prices[entry[3]][1] != float('inf') and prices[entry[3]][0] == entry[2] and prices[entry[3]][0]/prices[entry[3]][1] < LOWEST_PERCENT_MARGIN)]
     
     if len(results): # if there's results to print
         df=pd.DataFrame(['/viewauction ' + str(max(results, key=lambda entry:entry[1])[0][0])])
