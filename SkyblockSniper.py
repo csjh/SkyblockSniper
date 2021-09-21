@@ -8,6 +8,8 @@ import time
 import pandas as pd
 import requests
 
+from plyer import notification
+
 c = requests.get("https://api.hypixel.net/skyblock/auctions?page=0")
 resp = c.json()
 now = resp['lastUpdated']
@@ -93,6 +95,14 @@ def main():
     if len(results): results = [[entry, prices[entry[3]][1]] for entry in results if (entry[2] > LOWEST_PRICE and prices[entry[3]][1] != float('inf') and prices[entry[3]][0] == entry[2] and prices[entry[3]][0]/prices[entry[3]][1] < LOWEST_PERCENT_MARGIN)]
     
     if len(results): # if there's results to print
+
+        notification.notify(
+            title = str(max(results, key=lambda entry:entry[1])[0][1]),
+            message = "Lowest Bin: " + str(max(results, key=lambda entry:entry[1])[0][2]) + "\n2nd Lowest: " + str(max(results, key=lambda entry:entry[1])[1]),
+            app_icon = None,
+            timeout = 4,
+        )
+        
         df=pd.DataFrame(['/viewauction ' + str(max(results, key=lambda entry:entry[1])[0][0])])
         df.to_clipboard(index=False,header=False) # copies most valuable auction to clipboard (usually just the only auction cuz very uncommon for there to be multiple
         
