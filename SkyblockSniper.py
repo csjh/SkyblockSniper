@@ -1,6 +1,8 @@
 import asyncio
 import re
-import winsound
+import os
+op = os.name == 'nt'
+if op: import winsound
 from concurrent.futures import ThreadPoolExecutor
 from timeit import default_timer
 import time
@@ -23,6 +25,9 @@ REFORGES = [" ✦", "⚚ ", " ✪", "✪", "Stiff ", "Lucky ", "Jerry's ", "Dirt
 
 # Constant for the lowest priced item you want to be shown to you; feel free to change this
 LOWEST_PRICE = 5
+
+# Constant to turn on/off desktop notifications
+NOTIFY = False
 
 # Constant for the lowest percent difference you want to be shown to you; feel free to change this
 LOWEST_PERCENT_MARGIN = 1/2
@@ -96,19 +101,19 @@ def main():
     
     if len(results): # if there's results to print
 
-        notification.notify(
-            title = str(max(results, key=lambda entry:entry[1])[0][1]),
-            message = "Lowest Bin: " + str(max(results, key=lambda entry:entry[1])[0][2]) + "\n2nd Lowest: " + str(max(results, key=lambda entry:entry[1])[1]),
-            app_icon = None,
-            timeout = 4,
-        )
+        if NOTIFY: 
+            notification.notify(
+                title = max(results, key=lambda entry:entry[1])[0][1],
+                message = "Lowest BIN: " + f'{max(results, key=lambda entry:entry[1])[0][2]:,}' + "\nSecond Lowest: " + f'{max(results, key=lambda entry:entry[1])[1]:,}',
+                app_icon = None,
+                timeout = 4,
+            )
         
         df=pd.DataFrame(['/viewauction ' + str(max(results, key=lambda entry:entry[1])[0][0])])
         df.to_clipboard(index=False,header=False) # copies most valuable auction to clipboard (usually just the only auction cuz very uncommon for there to be multiple
         
-        winsound.Beep(500, 500) # emits a frequency 500hz, for 500ms
-        
         done = default_timer() - START_TIME
+        if op: winsound.Beep(500, 500) # emits a frequency 500hz, for 500ms
         for result in results:
             print("Auction UUID: " + str(result[0][0]) + " | Item Name: " + str(result[0][1]) + " | Item price: {:,}".format(result[0][2]), " | Second lowest BIN: {:,}".format(result[1]) + " | Time to refresh AH: " + str(round(done, 2)))
         print("\nLooking for auctions...")
