@@ -4,6 +4,7 @@
 Presumably it's pretty badly made since I wasn't getting the "200 mil per hour" figures that the YouTubers kept spouting so feel free to submit pull requests
 
 ## How to use:
+[Here's a video some dude made that shows the process fairly well](https://youtu.be/ojzcvRCDqJ0)
 ### Step 1
 Download Python 3.7.8. There's literally thousands of guides on how to do this so I'll assume you can figure it out yourself.
 
