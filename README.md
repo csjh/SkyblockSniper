@@ -22,6 +22,15 @@ Now the script is running good and well. From here, you can just AFK on your isl
 
 All you have to do is Ctrl+V every time you hear the beep, make sure it's not a scam (sometimes this happens with cosmetics or other market manipulation; can be prevented with NEU's average AH price thing), and then buy it.
 
+## Basic Troubleshooting
+> 'pip' is not recognized as an internal or external command, operable program or batch file.
+>
+Follow the first reply to [this stackoverflow post](https://stackoverflow.com/questions/23708898/), note that you'll have to open a new cmd window to apply the changes to PATH
+
+> Python was not found; run without arguments to install from the Microsoft Store, or disable this shortcut from Settings > Manage App Execution Aliases
+> 
+Make sure Python's installation folder was added to your PATH variables properly, and follow the [other suggestions on this stackoverflow post](https://stackoverflow.com/questions/65348890/).
+
 ## How to know it works
 ### Change LOWEST_PRICE in SkyblockSniper.py line 27 to 5 and rerun the script
 You should get a few results for (shittier) BIN flips. Change LOWEST_PRICE back to 999999 (or any price you want to be the lowest) once done.
