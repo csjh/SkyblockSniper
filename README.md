@@ -22,7 +22,7 @@ Now the script is running good and well. From here, you can just AFK on your isl
 All you have to do is Ctrl+V every time you hear the beep, make sure it's not a scam (sometimes this happens with cosmetics or other market manipulation; can be prevented with NEU's average AH price thing), and then buy it.
 
 ## How to know it works
-### Change LOWEST_PRICE in SkyblockSniper.py line 24 to 5 and rerun the script
+### Change LOWEST_PRICE in SkyblockSniper.py line 27 to 5 and rerun the script
 You should get a few results for (shittier) BIN flips. Change LOWEST_PRICE back to 999999 (or any price you want to be the lowest) once done.
 
 ### CMD should look something like this before any results:
