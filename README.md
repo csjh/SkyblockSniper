@@ -6,7 +6,7 @@ Presumably it's pretty badly made since I wasn't getting the "200 mil per hour" 
 ## How to use:
 [Here's a video some dude made that shows the process fairly well](https://youtu.be/ojzcvRCDqJ0)
 ### Step 1
-Download Python 3.7.8. There's literally thousands of guides on how to do this so I'll assume you can figure it out yourself.
+Download the latest version of Python. There's literally thousands of guides on how to do this so I'll assume you can figure it out yourself.
 
 ### Step 2
 Either download this repository or just copy paste all the code from inside `SkyblockSniper.py` into a new file on your computer called `SkyblockSniper.py`, and all the text from `requirements.txt` into a new file on your computer called `requirements.txt`.
