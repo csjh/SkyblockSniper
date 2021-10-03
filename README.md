@@ -31,6 +31,9 @@ Follow the first reply to [this stackoverflow post](https://stackoverflow.com/qu
 > 
 Make sure Python's installation folder was added to your PATH variables properly, and follow the [other suggestions on this stackoverflow post](https://stackoverflow.com/questions/65348890/).
 
+## Mac Supprt
+If you want to make the file make a ping sound everytime it finds an flip, you can use the playsound module to play a sound on your desktop
+
 ## How to know it works
 ### Change LOWEST_PRICE in SkyblockSniper.py line 27 to 5 and rerun the script
 You should get a few results for (shittier) BIN flips. Change LOWEST_PRICE back to 999999 (or any price you want to be the lowest) once done.
