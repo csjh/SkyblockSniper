@@ -1,5 +1,7 @@
 # SkyblockSniper
 
+### I'm not going to respond to issues asking for basic, Google-able troubleshooting questions anymore. If you have one such issue, Google the error.
+
 ### This is a BIN sniper bot I made in like 2 hours because all the BIN sniping people seem annoying
 Presumably it's pretty badly made since I wasn't getting the "200 mil per hour" figures that the YouTubers kept spouting so feel free to submit pull requests
 
