@@ -21,7 +21,7 @@ results = []
 prices = {}
 
 # stuff to remove
-REFORGES = [" ✦", "⚚ ", " ✪", "✪", "Stiff ", "Lucky ", "Jerry's ", "Dirty ", "Fabled ", "Suspicious ", "Gilded ", "Warped ", "Withered ", "Bulky ", "Stellar ", "Heated ", "Ambered ", "Fruitful ", "Magnetic ", "Fleet ", "Mithraic ", "Auspicious ", "Refined ", "Headstrong ", "Precise ", "Spiritual ", "Moil ", "Blessed ", "Toil ", "Bountiful ", "Candied ", "Submerged ", "Reinforced ", "Cubic ", "Warped ", "Undead ", "Ridiculous ", "Necrotic ", "Spiked ", "Jaded ", "Loving ", "Perfect ", "Renowned ", "Giant ", "Empowered ", "Ancient ", "Sweet ", "Silky ", "Bloody ", "Shaded ", "Gentle ", "Odd ", "Fast ", "Fair ", "Epic ", "Sharp ", "Heroic ", "Spicy ", "Legendary ", "Deadly ", "Fine ", "Grand ", "Hasty ", "Neat ", "Rapid ", "Unreal ", "Awkward ", "Rich ", "Clean ", "Fierce ", "Heavy ", "Light ", "Mythic ", "Pure ", "Smart ", "Titanic ", "Wise ", "Bizarre ", "Itchy ", "Ominous ", "Pleasant ", "Pretty ", "Shiny ", "Simple ", "Strange ", "Vivid ", "Godly ", "Demonic ", "Forceful ", "Hurtful ", "Keen ", "Strong ", "Superior ", "Unpleasant ", "Zealous "]
+REFORGES = ["✦", "⚚", "✪", "✪", "Stiff", "Salty", "Treachorous", "Lucky", "Jerry's", "Dirty", "Fabled", "Suspicious", "Gilded", "Warped", "Withered", "Bulky", "Stellar", "Heated", "Ambered", "Fruitful", "Magnetic", "Fleet", "Mithraic", "Auspicious", "Refined", "Headstrong", "Precise", "Spiritual", "Moil", "Blessed", "Toil", "Bountiful", "Candied", "Submerged", "Reinforced", "Cubic", "Warped", "Undead", "Ridiculous", "Necrotic", "Spiked", "Jaded", "Loving", "Perfect", "Renowned", "Giant", "Empowered", "Ancient", "Sweet", "Silky", "Bloody", "Shaded", "Gentle", "Odd", "Fast", "Fair", "Epic", "Sharp", "Heroic", "Spicy", "Legendary", "Deadly", "Fine", "Grand", "Hasty", "Neat", "Rapid", "Unreal", "Awkward", "Rich", "Clean", "Fierce", "Heavy", "Light", "Mythic", "Pure", "Smart", "Titanic", "Very Wise", "Wise", "Bizarre", "Itchy", "Ominous", "Pleasant", "Pretty", "Shiny", "Simple", "Strange", "Vivid", "Godly", "Demonic", "Forceful", "Hurtful", "Keen", "Strong", "Superior", "Unpleasant", "Zealous "]
 
 # Constant for the lowest priced item you want to be shown to you; feel free to change this
 LOWEST_PRICE = 5
@@ -31,6 +31,17 @@ NOTIFY = False
 
 # Constant for the lowest percent difference you want to be shown to you; feel free to change this
 LOWEST_PERCENT_MARGIN = 1/2
+
+# Dictionary for removing the recomb in order to prevent AH scams.
+TIER_RECOMB = {
+    'V': 'S',
+    'S': 'S',
+    'M': 'L',
+    'L': 'E',
+    'E': 'R',
+    'R': 'U',
+    'U': 'C',
+}
 
 START_TIME = default_timer()
 
@@ -45,10 +56,12 @@ def fetch(session, page):
             toppage = data['totalPages']
             for auction in data['auctions']:
                 if not auction['claimed'] and 'bin' in auction and not "Furniture" in auction["item_lore"]: # if the auction isn't a) claimed and is b) BIN
+                    # Check Recomb
+                    if 'ka§r' in auction['item_lore']: auction['tier'] = TIER_RECOMB[auction['tier'][0]]
                     # removes level if it's a pet, also 
-                    index = re.sub("\[[^\]]*\]", "", auction['item_name']) + auction['tier']
+                    index = re.sub("\[[^\]]*\]", "", auction['item_name']) + auction['tier'][0]
                     # removes reforges and other yucky characters
-                    for reforge in REFORGES: index = index.replace(reforge, "")
+                    for reforge in REFORGES: index = index.replace(reforge, "").replace(" ", "")
                     # if the current item already has a price in the prices map, the price is updated
                     if index in prices:
                         if prices[index][0] > auction['starting_bid']:
