@@ -1,0 +1,6 @@
+#! install PyObjC (pip install -U PyObjC)
+import os #! line 3
+op = os.name == 'posix' #! change in line 4
+if op: import AppKit #! change in line 5
+
+if op: AppKit.NSBeep() #! change in line 116
