@@ -1,5 +1,7 @@
 # SkyblockSniper
 
+## Check out my bazaar flipping website, https://skyblock.bz
+
 ### I'm not going to respond to issues asking for basic, Google-able troubleshooting questions anymore. If you have one such issue, Google the error.
 
 ### This is a BIN sniper bot I made in like 2 hours because all the BIN sniping people seem annoying
