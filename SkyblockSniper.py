@@ -143,7 +143,7 @@ def main():
                 app_icon = None,
                 timeout = 4,
             )
-        df=pd.DataFrame(['/Start-Flip ' + str(max(results, key=lambda entry:entry[1])[0][0])])
+        df=pd.DataFrame(['/viewauction ' + str(max(results, key=lambda entry:entry[1])[0][0])])
         df.to_clipboard(index=False,header=False) # copies most valuable auction to clipboard (usually just the only auction cuz very uncommon for there to be multiple
         done = default_timer() - START_TIME
         if op: winsound.Beep(500, 500) # emits a frequency 500hz, for 500ms
@@ -151,9 +151,6 @@ def main():
             median_price = (fetch_cofl(result[0][1])['median'])
             print("Auction UUID: " + str(result[0][0]) + " | Item Name: " + str(result[0][1]) + " | Item price: {:,}".format(result[0][2]) + " | Median Item Price: {:,.2f}".format(median_price) + " | Second lowest BIN: {:,}".format(result[1]) + " | Time to refresh AH: " + str(round(done, 2)))
         print("\nLooking for auctions...")
-
-
-
 
 print("Looking for auctions...")
 main()
@@ -172,7 +169,7 @@ def dostuff():
             main()
         else:
             now = prevnow
-    time.sleep(0.25)
+    time.sleep(0.05)
 
 while True:
     dostuff()
