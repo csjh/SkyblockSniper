@@ -6,7 +6,7 @@
 
 ## How to use:
 [Here's a video some dude made that shows the process fairly well](https://youtu.be/ojzcvRCDqJ0)
-[This is a video I made on installing a similar program but just replace the github url with this one.]((https://youtu.be/xPEZBK1SaUk))
+[This is a video I made on installing a similar program but just replace the github url with this one.](https://youtu.be/xPEZBK1SaUk)
 ### Step 1
 Download Python 3.7.8. There's literally thousands of guides on how to do this so I'll assume you can figure it out yourself.
 
